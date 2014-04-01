@@ -1,0 +1,2 @@
+# Turn on URL rewriting
+RewriteEngine Off
