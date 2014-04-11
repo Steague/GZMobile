@@ -44,7 +44,7 @@ spl_autoload_register(array('Kohana', 'auto_load'));
  * Cookie
  */
 Cookie::$salt = sha1("I am a sweet cookie salt for Generation Z");
-Cookie::$expiration = DATE::WEEK; // by default until the browser close
+Cookie::$expiration = Date::WEEK; // by default until the browser close
 
 Session::$default = 'database';
 
@@ -112,6 +112,7 @@ if (isset($_SERVER['KOHANA_ENV']))
  */
 Kohana::init(array(
 	'base_url'   => '/',
+	'errors'     => false
 ));
 
 /**
