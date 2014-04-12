@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
- 
-abstract class Controller_Template_Base extends Controller_Template 
+
+abstract class Controller_Template_Base extends Controller_Template
 {
 	// Define the template to use
 	public $template = 'templates/base';
@@ -8,22 +8,22 @@ abstract class Controller_Template_Base extends Controller_Template
 	public function before()
 	{
 		parent::before();
- 
+
 		// Page Title
 		$this->template->title = '';
-		
+
 		// Meta Tags
 		$this->template->meta_tags = array();
-		
+
 		// Relational Links (other than stylesheets)
 		$this->template->links = array();
-		
+
 		// Stylesheets
 		$this->template->stylesheets = array();
-		
+
 		// Javascripts
 		$this->template->javascripts = array();
-	
+
 		// Javascript Custom
 		$this->template->js_custom = '';
 
@@ -32,9 +32,9 @@ abstract class Controller_Template_Base extends Controller_Template
 			->bind('message', $message)
 			->bind('errors', $errors);
 
-		$sessionmessage = Session::instance()->get_once('message');
-		if ($sessionmessage) $message = $sessionmessage;
-		
+		// $sessionmessage = Session::instance()->get_once('message');
+		// if ($sessionmessage) $message = $sessionmessage;
+
 		// No content by default
 		$this->template->layout->content = '';
 
@@ -56,5 +56,5 @@ abstract class Controller_Template_Base extends Controller_Template
 		$this->template->javascripts[] = "http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.1/jquery.mobile.min.js";
 		$this->template->javascripts[] = "/assets/js/main.js";
 	}
- 
+
 } // End Controller_Template_Base

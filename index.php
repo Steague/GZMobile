@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
 /**
  * The directory in which your application specific resources are located.
  * The application directory must contain the bootstrap.php file.

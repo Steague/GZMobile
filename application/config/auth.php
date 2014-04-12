@@ -2,7 +2,7 @@
 
 return array(
 
-	'driver'       => 'orm',
+	'driver'       => 'ORM',
 	'hash_method'  => 'sha256',
 	'hash_key'     => sha1("I am a sweet cookie salt for Generation Z"),
 	'lifetime'     => 0,//DATE::HOUR * 2,
