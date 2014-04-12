@@ -62,7 +62,7 @@ class Controller_Game extends Controller_Template_Base {
 		// 	->bind('errors', $errors)
 		// 	->bind('id', $id);
 
-		//$players = ORM::factory('player')->with('game')->find_all();
+		//$players = ORM::factory('Player')->with('game')->find_all();
 		$can_view = Game::instance()->can_view_game($id,$user->id);
 
 		echo "<pre>";

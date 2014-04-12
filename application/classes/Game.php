@@ -29,7 +29,7 @@ class Game {
 		$params['gm_id']   = $user->id;
 		$params['started'] = time();
 
-		$game = ORM::factory('game')->create_game($params, array(
+		$game = ORM::factory('Game')->create_game($params, array(
 			'gm_id',
 			'name',
 			'started'
@@ -51,7 +51,7 @@ class Game {
 			return true;
 		}
 
-		$game   = ORM::factory('game')->where('id', '=', $game_id)->find();
+		$game   = ORM::factory('Game')->where('id', '=', $game_id)->find();
 		$player = $game->players
 			->where('player_id', '=', $user_id)
 			->where('active', '=', 1)

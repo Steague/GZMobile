@@ -20,7 +20,7 @@ class Kohana_ORM extends Model implements serializable {
 	 * @var array
 	 */
 	protected static $_column_cache = array();
-	
+
 	/**
 	 * Initialization storage for ORM models
 	 * @var array
@@ -28,9 +28,9 @@ class Kohana_ORM extends Model implements serializable {
 	protected static $_init_cache = array();
 
 	/**
-	 * Creates and returns a new model. 
+	 * Creates and returns a new model.
 	 * Model name must be passed with its' original casing, e.g.
-	 * 
+	 *
 	 *    $model = ORM::factory('User_Token');
 	 *
 	 * @chainable
@@ -293,7 +293,7 @@ class Kohana_ORM extends Model implements serializable {
 		{
 			$this->_object_name = strtolower(substr(get_class($this), 6));
 		}
-		
+
 		// Check if this model has already been initialized
 		if ( ! $init = Arr::get(ORM::$_init_cache, $this->_object_name, FALSE))
 		{
@@ -302,7 +302,7 @@ class Kohana_ORM extends Model implements serializable {
 				'_has_one'    => array(),
 				'_has_many'   => array(),
 			);
-			
+
 			// Set the object plural name if none predefined
 			if ( ! isset($this->_object_plural))
 			{
@@ -331,7 +331,7 @@ class Kohana_ORM extends Model implements serializable {
 					$init['_table_name'] = Arr::get($init, '_object_plural', $this->_object_plural);
 				}
 			}
-			
+
 			$defaults = array();
 
 			foreach ($this->_belongs_to as $alias => $details)
@@ -340,7 +340,7 @@ class Kohana_ORM extends Model implements serializable {
 				{
 					$defaults['model'] = str_replace(' ', '_', ucwords(str_replace('_', ' ', $alias)));
 				}
-				
+
 				$defaults['foreign_key'] = $alias.$this->_foreign_key_suffix;
 
 				$init['_belongs_to'][$alias] = array_merge($defaults, $details);
@@ -352,7 +352,7 @@ class Kohana_ORM extends Model implements serializable {
 				{
 					$defaults['model'] = str_replace(' ', '_', ucwords(str_replace('_', ' ', $alias)));
 				}
-				
+
 				$defaults['foreign_key'] = $this->_object_name.$this->_foreign_key_suffix;
 
 				$init['_has_one'][$alias] = array_merge($defaults, $details);
@@ -364,27 +364,27 @@ class Kohana_ORM extends Model implements serializable {
 				{
 					$defaults['model'] = str_replace(' ', '_', ucwords(str_replace('_', ' ', Inflector::singular($alias))));
 				}
-				
+
 				$defaults['foreign_key'] = $this->_object_name.$this->_foreign_key_suffix;
 				$defaults['through'] = NULL;
-				
+
 				if ( ! isset($details['far_key']))
 				{
 					$defaults['far_key'] = Inflector::singular($alias).$this->_foreign_key_suffix;
 				}
-				
+
 				$init['_has_many'][$alias] = array_merge($defaults, $details);
 			}
-			
+
 			ORM::$_init_cache[$this->_object_name] = $init;
 		}
-		
+
 		// Assign initialized properties to the current object
 		foreach ($init as $property => $value)
 		{
 			$this->{$property} = $value;
 		}
-		
+
 		// Load column information
 		$this->reload_columns();
 
@@ -470,7 +470,7 @@ class Kohana_ORM extends Model implements serializable {
 
 		// Reset primary key
 		$this->_primary_key_value = NULL;
-		
+
 		// Reset the loaded state
 		$this->_loaded = FALSE;
 
@@ -602,7 +602,7 @@ class Kohana_ORM extends Model implements serializable {
 	{
 		return $this->get($column);
 	}
-	
+
 	/**
 	 * Handles getting of column
 	 * Override this method to add custom get behavior
@@ -717,10 +717,10 @@ class Kohana_ORM extends Model implements serializable {
 		{
 			// Object not yet constructed, so we're loading data from a database call cast
 			$this->_cast_data[$column] = $value;
-			
+
 			return $this;
 		}
-		
+
 		if (in_array($column, $this->_serialize_columns))
 		{
 			$value = $this->_serialize_value($value);
@@ -1448,10 +1448,10 @@ class Kohana_ORM extends Model implements serializable {
 	 * Tests if this object has a relationship to a different model,
 	 * or an array of different models. When providing far keys, the number
 	 * of relations must equal the number of keys.
-	 * 
+	 *
 	 *
 	 *     // Check if $model has the login role
-	 *     $model->has('roles', ORM::factory('role', array('name' => 'login')));
+	 *     $model->has('roles', ORM::factory('Role', array('name' => 'login')));
 	 *     // Check for the login role if you know the roles.id is 5
 	 *     $model->has('roles', 5);
 	 *     // Check for all of the following roles
@@ -1483,7 +1483,7 @@ class Kohana_ORM extends Model implements serializable {
 	 * only checks that at least one of the relationships is satisfied.
 	 *
 	 *     // Check if $model has the login role
-	 *     $model->has('roles', ORM::factory('role', array('name' => 'login')));
+	 *     $model->has('roles', ORM::factory('Role', array('name' => 'login')));
 	 *     // Check for the login role if you know the roles.id is 5
 	 *     $model->has('roles', 5);
 	 *     // Check for any of the following roles
@@ -1501,10 +1501,10 @@ class Kohana_ORM extends Model implements serializable {
 	}
 
 	/**
-	 * Returns the number of relationships 
+	 * Returns the number of relationships
 	 *
 	 *     // Counts the number of times the login role is attached to $model
-	 *     $model->count_relations('roles', ORM::factory('role', array('name' => 'login')));
+	 *     $model->count_relations('roles', ORM::factory('Role', array('name' => 'login')));
 	 *     // Counts the number of times role 5 is attached to $model
 	 *     $model->count_relations('roles', 5);
 	 *     // Counts the number of times any of roles 1, 2, 3, or 4 are attached to
@@ -1550,7 +1550,7 @@ class Kohana_ORM extends Model implements serializable {
 	 * Adds a new relationship to between this model and another.
 	 *
 	 *     // Add the login role using a model instance
-	 *     $model->add('roles', ORM::factory('role', array('name' => 'login')));
+	 *     $model->add('roles', ORM::factory('Role', array('name' => 'login')));
 	 *     // Add the login role if you know the roles.id is 5
 	 *     $model->add('roles', 5);
 	 *     // Add multiple roles (for example, from checkboxes on a form)
@@ -1583,7 +1583,7 @@ class Kohana_ORM extends Model implements serializable {
 	 * Removes a relationship between this model and another.
 	 *
 	 *     // Remove a role using a model instance
-	 *     $model->remove('roles', ORM::factory('role', array('name' => 'login')));
+	 *     $model->remove('roles', ORM::factory('Role', array('name' => 'login')));
 	 *     // Remove the role knowing the primary key
 	 *     $model->remove('roles', 5);
 	 *     // Remove multiple roles (for example, from checkboxes on a form)

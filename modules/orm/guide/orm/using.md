@@ -73,15 +73,15 @@ To delete an object, you can call the [ORM::delete] method on a loaded ORM model
 	$user = ORM::factory('User', 20);
 	$user->delete();
 
-	
+
 ## Mass assignment
-	
+
 
 To set multiple values at once, use [ORM::values]
-	
+
 	try
 	{
-		$user = ORM::factory('user')
+		$user = ORM::factory('User')
 			->values($this->request->post(), array('username','password'))
 			->create();
 	}
@@ -89,6 +89,6 @@ To set multiple values at once, use [ORM::values]
 	{
 		// Handle validation errors ...
 	}
-	
+
 [!!] Although the second argument is optional, it is *highly recommended* to specify the list of columns you expect to change. Not doing so will leave your code _vulnerable_ in case the attacker adds fields you didn't expect.
 
