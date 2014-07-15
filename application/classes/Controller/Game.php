@@ -16,7 +16,13 @@ class Controller_Game extends Controller_Template_Base {
 			$this->template->layout = View::factory('user/login')
 				->bind('message', $message)
 				->bind('errors', $errors);
+			return;
 		}
+
+		$this->template->layout = View::factory('user/info')
+			->bind('message', $message)
+			->bind('errors', $errors)
+			->bind('user', $user);
 	}
 
 	public function action_create()
@@ -57,16 +63,23 @@ class Controller_Game extends Controller_Template_Base {
 	public function action_view()
 	{
 		$id = $this->request->param('id');
-		$user = Auth::instance()->get_user();
+
+		$game = new Game($id);
+		if ($game->can_view_game() === false)
+		{
+			return;
+		}
+
 		$this->template->layout = View::factory('game/view')
 			->bind('message', $message)
 			->bind('errors', $errors)
-			->bind('id', $id);
+			->bind('game', $game);
+		// $players = $game->get_all_players();
+		// $can_view = $game->can_view_game();
 
-		$game = new Game($id);
-
-		// $players = ORM::factory('Player')->with('game')->find_all();
-		$players = $game->get_all_players();
-		$can_view = $game->can_view_game($user->id, $id);
+		// echo "<pre>";
+		// var_dump($players);
+		// var_dump($can_view);
+		// echo "</pre>";
 	}
 }
