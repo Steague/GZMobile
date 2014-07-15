@@ -30,7 +30,8 @@ class Controller_Game extends Controller_Template_Base {
 		{
 			try
 			{
-				$game = Game::instance()->create();
+				$game = new Game();
+				$game = $game->create();
 
 				// Reset values so form is not sticky
 				$_POST = array();
@@ -57,16 +58,15 @@ class Controller_Game extends Controller_Template_Base {
 	{
 		$id = $this->request->param('id');
 		$user = Auth::instance()->get_user();
-		// $this->template->layout = View::factory('game/view')
-		// 	->bind('message', $message)
-		// 	->bind('errors', $errors)
-		// 	->bind('id', $id);
+		$this->template->layout = View::factory('game/view')
+			->bind('message', $message)
+			->bind('errors', $errors)
+			->bind('id', $id);
 
-		//$players = ORM::factory('Player')->with('game')->find_all();
-		$can_view = Game::instance()->can_view_game($id,$user->id);
+		$game = new Game($id);
 
-		echo "<pre>";
-		var_dump($can_view);
-		echo "</pre>";
+		// $players = ORM::factory('Player')->with('game')->find_all();
+		$players = $game->get_all_players();
+		$can_view = $game->can_view_game($user->id, $id);
 	}
 }

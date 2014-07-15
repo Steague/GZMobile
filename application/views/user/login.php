@@ -20,12 +20,12 @@
 		<?php echo Form::open('/user/login'); ?>
 			<div data-role="fieldcontain">
 				<?php echo Form::label('username_login', 'Username'); ?>
-				<?php echo Form::input('username', HTML::chars(Arr::get($_POST, 'username')), array("id"=>"username_login")); ?>
+				<?php echo Form::input('username', HTML::chars(Arr::get($_POST, 'username')), array("id"=>"username_login","placeholder"=>"Username")); ?>
 				<?php echo Form::label('username_login', Arr::get($errors, 'username'), array('class'=>"error")); ?>
 			</div>
 			<div data-role="fieldcontain">
 				<?php echo Form::label('password_login', 'Password'); ?>
-				<?php echo Form::password('password', null, array("id"=>"password_login")); ?>
+				<?php echo Form::password('password', null, array("id"=>"password_login","placeholder"=>"Password")); ?>
 				<?php echo Form::label('password_login', Arr::path($errors, '_external.password'), array('class'=>"error")); ?>
 			</div>
 			<label>

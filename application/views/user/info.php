@@ -25,8 +25,8 @@
 	<div data-role="footer">
 		<div data-role="navbar">
 			<ul>
-				<li><?php echo HTML::anchor('index.php/game/create', 'Create Game', array("data-icon"=>"carat-r"), null, false); ?></li>
-				<li><a href="#" data-icon="plus">Join Game</a></li>
+				<li><?php echo HTML::anchor('/game/create', 'Create Game', array("data-icon"=>"carat-r"), null, false); ?></li>
+				<li><?php echo HTML::anchor('/game/join', 'Join Game', array("data-icon"=>"plus"), null, false); ?></li>
 			</ul>
 		</div><!-- /navbar -->
 	</div><!-- /footer -->
