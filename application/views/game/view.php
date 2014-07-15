@@ -8,6 +8,18 @@
 
 	<div role="main" class="ui-content">
 
+		<?php if (count($game->get_all_players()) == 0): ?>
+			No players currently.
+		<?php else: ?>
+			<?php foreach ($game->get_all_players() as $k => $player): ?>
+				# code...
+			<?php endforeach; ?>
+		<?php endif; ?>
+
+		<?php if ($game->is_gm == true && $game->is_player() === false): ?>
+			Join own game?
+		<?php endif; ?>
+
 		<?php
 			// $c = base_convert(60466175, 10, 36);
 			// echo $c;

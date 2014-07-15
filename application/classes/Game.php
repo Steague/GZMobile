@@ -124,7 +124,25 @@ class Game {
 		return true;
 	}
 
-	public function get_all_players($game_id = null)
+	public function is_player($user_id = null)
+	{
+		// If no user ID specified, get the currently logged in user
+		if ($user_id === null)
+		{
+			$user = Auth::instance()->get_user();
+			$user_id = $user->id;
+		}
+
+		$players = $this->get_all_players();
+		if (!array_key_exists($user_id, $players))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	public function get_all_players()
 	{
 		if ($this->valid_game() === false)
 		{
