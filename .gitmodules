@@ -1,0 +1,3 @@
+[submodule "modules/twilio"]
+	path = modules/twilio
+	url = https://destos@github.com/destos/kohana-twilio.git

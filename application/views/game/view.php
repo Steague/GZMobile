@@ -25,6 +25,10 @@
 			// echo $c;
 			// echo "<br />";
 			// echo base_convert($c, 36, 10);
+			$t = Twilio::instance()->send_sms(array("To"=>"4153783004","Body"=>"sup? ".time()));
+			echo "<pre>";
+			var_dump($t);
+			echo "</pre>";
 		?>
 
 	</div><!-- /content -->
