@@ -17,7 +17,7 @@
 		<?php endif; ?>
 
 		<?php if ($game->is_gm == true && $game->is_player() === false): ?>
-			Join own game?
+			<?php echo HTML::anchor('/game/join/'.$game->id, 'Join your own game?', array("class"=>"ui-shadow ui-btn ui-corner-all ui-btn-icon-right ui-icon-check"), null, false); ?>
 		<?php endif; ?>
 
 		<?php
@@ -25,10 +25,10 @@
 			// echo $c;
 			// echo "<br />";
 			// echo base_convert($c, 36, 10);
-			$t = Twilio::instance()->send_sms(array("To"=>"4153783004","Body"=>"sup? ".time()));
-			echo "<pre>";
-			var_dump($t);
-			echo "</pre>";
+			// $t = Twilio::instance()->send_sms(array("To"=>"415-378-9465","Body"=>"The user, \"Sean,\" has asked to be a member of your Generation Z game."));
+			// echo "<pre>";
+			// var_dump($t);
+			// echo "</pre>";
 		?>
 
 	</div><!-- /content -->

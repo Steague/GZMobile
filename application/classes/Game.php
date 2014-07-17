@@ -11,6 +11,7 @@ class Game {
 			$user_id = $user->id;
 
 			$this->_game['db_game'] = $game;
+			$this->id               = $game->id;
 			$this->title            = $game->name;
 			$this->is_gm            = ($game->gm_id == $user_id ? true : false);
 		}
@@ -30,6 +31,7 @@ class Game {
 		));
 
 		$this->_game['db_game'] = $game;
+		$this->id               = $game->id;
 		$this->title            = $game->name;
 		$this->is_gm            = true;
 

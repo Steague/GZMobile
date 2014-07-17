@@ -60,6 +60,14 @@ class Controller_Game extends Controller_Template_Base {
 		}
 	}
 
+	public function action_join()
+	{
+		if (HTTP_Request::POST == $this->request->method())
+		{
+			$id = $this->request->param('id');
+		}
+	}
+
 	public function action_view()
 	{
 		$id = $this->request->param('id');
