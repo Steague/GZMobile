@@ -17,7 +17,7 @@
 		<?php endif; ?>
 
 		<?php if ($game->is_gm == true && $game->is_player() === false): ?>
-			<?php echo HTML::anchor('/game/join/'.$game->id, 'Join your own game?', array("class"=>"ui-shadow ui-btn ui-corner-all ui-btn-icon-right ui-icon-check"), null, false); ?>
+			<?php echo HTML::anchor('/player/new/'.$game->id, 'Join your own game?', array("class"=>"ui-shadow ui-btn ui-corner-all ui-btn-icon-right ui-icon-check"), null, false); ?>
 		<?php endif; ?>
 
 		<?php

@@ -62,10 +62,22 @@ class Controller_Game extends Controller_Template_Base {
 
 	public function action_join()
 	{
-		if (HTTP_Request::POST == $this->request->method())
+		$id = $this->request->param('id');
+		
+		$game = new Game($id);
+		if ($game->is_player() === true)
 		{
-			$id = $this->request->param('id');
+			// I am already a played in the game.
+			return;
 		}
+
+		//Add me to the game
+		$game->add_player();
+
+		$this->template->layout = View::factory('game/join')
+			->bind('message', $message)
+			->bind('errors', $errors)
+			->bind('game', $game);
 	}
 
 	public function action_view()

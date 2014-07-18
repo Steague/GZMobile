@@ -55,11 +55,15 @@ class Game {
 		return true;
 	}
 
-	public function get_short_id()
+	public static function get_short_id($id)
 	{
-		$game = $this->_game["db_game"];
-		$c = base_convert(60466175 + $game->id, 10, 36);
+		$c = base_convert(60466175 + $id, 10, 36);
+		return $c;
+	}
 
+	public static function get_id_from_short_id($short_id)
+	{
+		$c = base_convert(60466175 + $short_id, 36, 10);
 		return $c;
 	}
 
@@ -142,6 +146,45 @@ class Game {
 		}
 
 		return true;
+	}
+
+	public function add_player($user_id = null)
+	{
+		// If no user ID specified, get the currently logged in user
+		if ($user_id === null)
+		{
+			$user = Auth::instance()->get_user();
+			$user_id = $user->id;
+		}
+
+		if ($this->valid_game() === false)
+		{
+			return false;
+		}
+
+		$params            = array();
+		$params['game_id'] = $user->id;
+		$params['user_id'] = time();
+
+		$player = ORM::factory('Game')->create_player($_POST, array(
+			'game_id',
+			'user_id',
+			'name',
+			'health',
+			'sanity',
+			'fighting',
+			'social',
+			'survival',
+			'active',
+			'dead',
+			'bitten');
+
+		$this->_game['db_game'] = $game;
+		$this->id               = $game->id;
+		$this->title            = $game->name;
+		$this->is_gm            = true;
+
+		return $game;
 	}
 
 	public function get_all_players()

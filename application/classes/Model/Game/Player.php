@@ -5,7 +5,7 @@ class Model_Game_Player extends ORM {
 	protected $_table_columns = array(
 		'id'        => NULL,
 		'game_id'   => NULL,
-		'player_id' => NULL,
+		'user_id'   => NULL,
 		'name'      => NULL,
 		'health'    => NULL,
 		'sanity'    => NULL,
@@ -19,7 +19,7 @@ class Model_Game_Player extends ORM {
 
 	protected $_belongs_to = array(
 		'game' => array('model' => 'Game', 'foreign_key' => 'game_id'),
-		'user' => array('model' => 'User', 'foreign_key' => 'player_id')
+		'user' => array('model' => 'User', 'foreign_key' => 'user_id')
 	);
 
 	protected $_has_many = array(
@@ -33,24 +33,33 @@ class Model_Game_Player extends ORM {
 	 */
 	public function rules()
 	{
-		return array(
-			'gm_id' => array(
-				array('not_empty')
-			),
-			'name' => array(
-				array('not_empty')
-			)
-		);
+		// return array(
+		// 	'gm_id' => array(
+		// 		array('not_empty')
+		// 	),
+		// 	'name' => array(
+		// 		array('not_empty')
+		// 	)
+		// );
 	}
 
 	/**
-	 * Create a new game
+	 * Create a new Player
 	 *
 	 * Example usage:
 	 * ~~~
-	 * $game = ORM::factory('Game')->create_game($_POST, array(
-	 *	'gm_id',
-	 *	'name'
+	 * $player = ORM::factory('Player')->create_player($_POST, array(
+	 *	'game_id',
+	 *  'user_id',
+	 *  'name',
+	 *  'health',
+	 *  'sanity',
+	 *  'fighting',
+	 *  'social',
+	 *  'survival',
+	 *  'active',
+	 *  'dead',
+	 *  'bitten'
 	 * );
 	 * ~~~
 	 *
@@ -58,9 +67,8 @@ class Model_Game_Player extends ORM {
 	 * @param array $expected
 	 * @throws ORM_Validation_Exception
 	 */
-	public function create_game($values, $expected)
+	public function create_player($values, $expected)
 	{
 		return $this->values($values, $expected)->create();
 	}
-
-} // End Auth User Model
+}
