@@ -177,7 +177,7 @@ class Game {
 			'survival',
 			'active',
 			'dead',
-			'bitten');
+			'bitten'));
 
 		$this->_game['db_game'] = $game;
 		$this->id               = $game->id;

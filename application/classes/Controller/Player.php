@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Game extends Controller_Template_Base {
+class Controller_Player extends Controller_Template_Base {
 
 	public function before()
 	{
@@ -27,11 +27,6 @@ class Controller_Game extends Controller_Template_Base {
 
 	public function action_new()
 	{
-		$this->template->layout = View::factory('player/new')
-			->bind('message', $message)
-			->bind('errors', $errors)
-			->bind('game', $game);
-
 		$id = $this->request->param('id');
 		
 		$game = new Game($id);
@@ -41,6 +36,9 @@ class Controller_Game extends Controller_Template_Base {
 			return;
 		}
 
-
+		$this->template->layout = View::factory('player/new')
+			->bind('message', $message)
+			->bind('errors', $errors)
+			->bind('game', $game);
 	}
 }
