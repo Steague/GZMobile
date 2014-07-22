@@ -52,8 +52,8 @@ abstract class Controller_Template_Base extends Controller_Template
 			"media" => "screen"
 		);
 
-		$this->template->javascripts[] = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js";
-		$this->template->javascripts[] = "http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.1/jquery.mobile.min.js";
+		$this->template->javascripts[] = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js";
+		$this->template->javascripts[] = "http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js";
 		$this->template->javascripts[] = "/assets/js/main.js";
 	}
 
