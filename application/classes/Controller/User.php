@@ -58,7 +58,7 @@ class Controller_User extends Controller_Template_Base {
 				$this->redirect(Route::get('default')->uri(array(
          			'controller' => 'user',
             		'action'     => 'index'
-        		)));
+        		)),302);
 			}
 			else
 			{

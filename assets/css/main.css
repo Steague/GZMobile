@@ -1,4 +1,5 @@
-.error {
+.error
+{
     color: red;
     font-size: 16px;
     font-weight: bold;
@@ -8,10 +9,30 @@
     float: none;
     text-transform:capitalize;
 }
- 
-@media screen and (orientation: portrait){
-    label.error { margin-left: 0; display: block; }
+/*.ui-field-contain>.ui-btn-inline
+{
+    width:32px !important;
+}*/
+.ui-field-contain>label~[class*=ui-btn-inline]
+{
+    width:32px;
+}
+.ui-field-contain>.ui-btn-inline~[class*=ui-]
+{
+    width:70%;
 }
  
-@media screen and (orientation: landscape){
-    label.error { display: inline-block; margin-left: 22%; }
+@media screen and (orientation: portrait) {
+    label.error {
+        margin-left: 0;
+        display: block;
+    }
+}
+ 
+@media screen and (orientation: landscape) {
+    label.error
+    {
+        display: inline-block;
+        margin-left: 22%;
+    }
+}

@@ -1,6 +1,6 @@
 <div data-role="page" id="login" data-theme="a">
 
-	<div data-role="header">
+	<div data-role="header" data-position="fixed">
 		<h1>Generation Z</h1>
 		<?php echo HTML::anchor('/user/register', 'Register', array("class"=>"ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-user"), null, false); ?>
 	</div><!-- /header -->

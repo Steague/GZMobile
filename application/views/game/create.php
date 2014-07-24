@@ -1,6 +1,6 @@
 <div data-role="page" id="login" data-theme="a">
 
-	<div data-role="header">
+	<div data-role="header" data-position="fixed">
 		<?php echo HTML::anchor('/', 'Cancel', array("class"=>"ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-arrow-l"), null, false); ?>
 		<h1>Create New Game</h1>
 		<?php echo HTML::anchor('/user/logout', 'Logout', array("class"=>"ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-power"), null, false); ?>
