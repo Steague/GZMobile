@@ -1,25 +1,25 @@
 $(window).ready(function() {
     // $("#registerform").on("submit", function(e)
     // {
-    // 	e.preventDefault();
-    // 	$.ajax(
-    // 	{
-    // 		url: "/main/register",
-    // 	    beforeSend: function()
-    // 	    {
-    // 	    	// Handle the beforeSend event
-    // 		},
-    // 		complete: function()
-    // 		{
-    // 			// Handle the complete event
-    // 		}
-    // 		// ......
-    // 	});
+    //  e.preventDefault();
+    //  $.ajax(
+    //  {
+    //      url: "/main/register",
+    //      beforeSend: function()
+    //      {
+    //          // Handle the beforeSend event
+    //      },
+    //      complete: function()
+    //      {
+    //          // Handle the complete event
+    //      }
+    //      // ......
+    //  });
     // });
 
     var help_list_object = {};
     $("a[href=#help_panel]").click(function() {
-        var title = ucwords($(this).attr("data-title").trim());
+        var title = ucwords($(this).parent().attr("data-title").trim());
         var content;
 
         $('#help_panel_content').html("");
@@ -47,6 +47,29 @@ $(window).ready(function() {
         }
 
         $("#help_panel").trigger("updatelayout");
+    });
+
+    var slider_obj = {};
+    $(".new_player_slider").on("change", function(e) {
+        if (!slider_obj.hasOwnProperty($(this).attr("id")) ||
+            slider_obj[$(this).attr("id")] != $(this).val()) {
+            var change = $(this).val() - slider_obj[$(this).attr("id")];
+            slider_obj[$(this).attr("id")] = $(this).val();
+            var pr = parseInt($("#points_remaining").val());
+
+            if (!isNaN(change)) {
+                $("#points_remaining").val(pr - change).slider("refresh");
+
+                var myId = $(this).attr("id");
+                $.each($(".new_player_slider"), function(k, v) {
+                    if ($(v).attr("id") != myId) {
+                        var pr = parseInt($("#points_remaining").val());
+                        var new_max = parseInt($(v).val()) + pr;
+                        $(v).attr("max", new_max).slider("refresh");
+                    }
+                });
+            }
+        }
     });
 });
 

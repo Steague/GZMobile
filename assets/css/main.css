@@ -13,14 +13,20 @@
 {
     width:32px !important;
 }*/
-.ui-field-contain>label~[class*=ui-btn-inline]
+.ui-field-contain>label>[class*=ui-btn-inline]
 {
-    width:32px;
+    position: absolute;
+    top:-15%;
+    right:78%;
 }
-.ui-field-contain>.ui-btn-inline~[class*=ui-]
+.new_player_slider
+{
+    
+}
+/*.ui-field-contain>.ui-btn-inline~[class*=ui-]
 {
     width:70%;
-}
+}*/
  
 @media screen and (orientation: portrait) {
     label.error {
