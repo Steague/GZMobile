@@ -36,7 +36,7 @@
                 <?php echo Form::label('archetype', Arr::get($errors, 'archetype'), array('class'=>"error")); ?>
             </div>
             <?php echo Form::label('points_remaining', 'Starting Points Remaining'); ?>
-            <?php echo Form::input('points_remaining', HTML::chars(Arr::get($_POST, 'points_remaining', 5)), array("id"=>"points_remaining", "type"=>"range", "data-highlight"=>"true", "min"=>0, "max"=>5, "disabled"=>"disabled")); ?>
+            <?php echo Form::input('points_remaining', HTML::chars(Arr::get($_POST, 'points_remaining', $game->starting_points)), array("id"=>"points_remaining", "type"=>"range", "data-highlight"=>"true", "min"=>0, "max"=>$game->starting_points, "disabled"=>"disabled")); ?>
             <div class="ui-field-contain">
                 <?php echo Form::label('health_slider', 'Health'.$help_link, array("data-title"=>"Health")); ?>
                 <?php echo Form::input('health', HTML::chars(Arr::get($_POST, 'health', 1)), array("id"=>"health_slider", "class"=>"new_player_slider", "type"=>"range", "data-highlight"=>"true", "min"=>1, "max"=>5)); ?>
@@ -44,7 +44,7 @@
             </div>
             <div class="ui-field-contain">
                 <?php echo Form::label('sanity_slider', 'Sanity'.$help_link, array("data-title"=>"Sanity")); ?>
-                <?php echo Form::input('sanity', HTML::chars(Arr::get($_POST, 'sanity', 0)), array("id"=>"sanity_slider", "class"=>"new_player_slider", "type"=>"range", "data-highlight"=>"true", "min"=>0, "max"=>5)); ?>
+                <?php echo Form::input('sanity', HTML::chars(Arr::get($_POST, 'sanity', 1)), array("id"=>"sanity_slider", "class"=>"new_player_slider", "type"=>"range", "data-highlight"=>"true", "min"=>1, "max"=>5)); ?>
                 <?php echo Form::label('sanity_slider', Arr::get($errors, 'sanity'), array('class'=>"error")); ?>
             </div>
             <div class="ui-field-contain">

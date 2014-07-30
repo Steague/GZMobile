@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 class Game {
 	private $_game = array();
+	public $starting_points = 3;
 
 	public function __construct($game_id)
 	{
@@ -15,6 +16,8 @@ class Game {
 			$this->title            = $game->name;
 			$this->is_gm            = ($game->gm_id == $user_id ? true : false);
 		}
+
+		$this->starting_points = 3;
 	}
 
 	public function create()
