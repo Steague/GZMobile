@@ -1,3 +1,6 @@
 [submodule "modules/twilio"]
 	path = modules/twilio
 	url = https://destos@github.com/destos/kohana-twilio.git
+[submodule "modules/simple_rest"]
+	path = modules/simple_rest
+	url = https://github.com/samkeen/kohana-simple-REST.git

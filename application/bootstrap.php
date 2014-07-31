@@ -140,18 +140,23 @@ Kohana::modules(array(
 	'unittest'   => MODPATH.'unittest',   // Unit testing
 	'twilio'     => MODPATH.'twilio',
 	// 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
+	'simple_rest'  => MODPATH.'simple_rest',  // User guide and API documentation
 	));
 
 /**
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
-// Route::set('default', '(<controller>(/<action>(/<id>)))')
-// 	->defaults(array(
-// 		'controller' => 'welcome',
-// 		'action'     => 'index',
-// 	));
-Route::set('default', '(<controller>(/<action>(/<id>)))')
+Route::set('api', '<directory>/<api_version>(/<controller>(/<resource_id>))',
+    array(
+        'directory'   => 'api',
+        'api_version' => 'v1'
+    ))
+    ->defaults(array(
+    'controller' => 'home',
+    'action'     => 'index',
+));
+Route::set('default', '(/<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'controller' => 'user',
 		'action'     => 'index',

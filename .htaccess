@@ -6,6 +6,7 @@ RewriteBase /
 
 # Protect hidden files from being viewed
 <Files .*>
+	Header set Access-Control-Allow-Origin "*"
 	Order Deny,Allow
 	Deny From All
 </Files>
