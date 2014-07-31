@@ -44,7 +44,7 @@ abstract class Controller_Template_Base extends Controller_Template
 		$this->template->title = 'Generation Z Game';
 
 		$this->template->stylesheets[] = array(
-			"href"  => "http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css",
+			"href"  => "/assets/css/jquery.mobile-1.4.3.min.css",
 			"media" => "screen"
 		);
 		$this->template->stylesheets[] = array(
@@ -52,8 +52,8 @@ abstract class Controller_Template_Base extends Controller_Template
 			"media" => "screen"
 		);
 
-		$this->template->javascripts[] = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js";
-		$this->template->javascripts[] = "http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js";
+		$this->template->javascripts[] = "/assets/js/jquery.min.js";
+		$this->template->javascripts[] = "/assets/js/jquery.mobile-1.4.3.min.js";
 		$this->template->javascripts[] = "/assets/js/main.js";
 	}
 

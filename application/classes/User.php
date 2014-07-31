@@ -13,7 +13,18 @@ class User {
 
 		if ($user)
 		{
-			return array("user"=>$user, "sig"=>$this->generate_signature(array("user"=>$user)));
+			$user = Auth::instance()->get_user();
+			$user_array = array(
+				"id"         => $user->id,
+				"email"      => $user->email,
+				"username"   => $user->username,
+				"last_login" => Date::fuzzy_span($user->last_login)
+			);
+
+			return array(
+				"signed_request" => $this->generate_signature(array("user"=>Auth::instance()->get_user())).".".base64_encode(json_encode(array("user" => $user_array))),
+				"user"           => $user_array
+			);
 		}
 		
 		return false;
@@ -25,7 +36,7 @@ class User {
 		ksort($data);
 		$dataString = strtolower(json_encode($data));
 
-		return hash_hmac("sha256",$dataString,$secretKey);
+		return base64_encode(sha1(hash_hmac("sha256",$dataString,$secretKey)));
 	}
 
 

@@ -156,7 +156,7 @@ Route::set('api', '<directory>/<api_version>(/<controller>(/<resource_id>))',
     'controller' => 'home',
     'action'     => 'index',
 ));
-Route::set('default', '(/<controller>(/<action>(/<id>)))')
+Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'controller' => 'user',
 		'action'     => 'index',

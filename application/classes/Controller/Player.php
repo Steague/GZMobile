@@ -41,4 +41,24 @@ class Controller_Player extends Controller_Template_Base {
 			->bind('errors', $errors)
 			->bind('game', $game);
 	}
+
+	public function action_register()
+	{
+		$id = $this->request->param('id');
+		
+		$game = new Game($id);
+		if ($game->is_player() === true)
+		{
+			// I am already a played in the game.
+			return;
+		}
+
+		//if new player is GM
+			//Add player to game in active state
+			//Send player back to game
+		//Else
+			//send request notification to the GM
+			//Add player to game in pending state
+			//Send player back to lobby
+	}
 }
