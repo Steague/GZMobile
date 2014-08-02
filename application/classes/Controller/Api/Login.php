@@ -23,12 +23,15 @@ class Controller_Api_Login extends Api_Controller {
 		}
 
 		$result = array(
-			"result" => "success",
+			"result"         => "success",
 			"signed_request" => $user["signed_request"],
-			"callback" => array(
-				"function"   => "navigate_to",
-				"template"   => "info",
-				"data" => $user["user"]
+			"valid"          => $user["valid"],
+			"callback"       => array(
+				"function" => "navigate_to",
+				"params"   => array(
+					"template" => "info",
+					"data"     => $user["user"]
+				)
 			)
 		);
 		$json_encode = json_encode($result);
