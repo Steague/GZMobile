@@ -3,8 +3,12 @@ class Game {
 	private $_game = array();
 	public $starting_points = 3;
 
-	public function __construct($game_id)
+	public function __construct($game_id = null)
 	{
+		if ($game_id === null)
+		{
+			return;
+		}
 		$game = ORM::factory('Game')->where('id', '=', $game_id)->find();
 		if ($game)
 		{
@@ -39,6 +43,15 @@ class Game {
 		$this->is_gm            = true;
 
 		return $game;
+	}
+
+	public function get_game_data()
+	{
+		return array(
+			"id" => $this->id,
+			"title" => $this->title,
+			"is_gm" => $this->is_gm
+		);
 	}
 
 	protected function valid_game()

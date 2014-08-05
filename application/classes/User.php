@@ -9,6 +9,8 @@ class User {
 
 	public function login($request)
 	{
+		$signed_request = ($request->query('signed_request') ? $request->query('signed_request') : $_POST["signed_request"]);
+
 		if ($request->query('username') !== null &&
 			$request->query('password') !== null)
 		{
@@ -16,10 +18,10 @@ class User {
 			$remember = array_key_exists('remember', $request->query()) ? (bool) $request->query('remember') : false;
 			$user = Auth::instance()->login($request->query('username'), $request->query('password'), $remember);
 		}
-		elseif ($request->query('signed_request') !== null &&
-			$this->validate_signature($request->query('signed_request')) === true)
+		elseif ($signed_request !== null &&
+			$this->validate_signature($signed_request) === true)
 		{
-			list($sig, $payload) = explode(".", $request->query('signed_request'));
+			list($sig, $payload) = explode(".", $signed_request);
 
 			$data = json_decode(base64_decode($payload), true);
 
@@ -57,6 +59,11 @@ class User {
 
 	public function generate_signature($data)
 	{
+		if (!is_array($data))
+		{
+			return false;
+		}
+
 		ksort($data);
 		$dataString = strtolower(json_encode($data));
 
