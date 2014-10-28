@@ -53,12 +53,28 @@ class Controller_Player extends Controller_Template_Base {
 			return;
 		}
 
-		//if new player is GM
-			//Add player to game in active state
-			//Send player back to game
-		//Else
-			//send request notification to the GM
-			//Add player to game in pending state
-			//Send player back to lobby
+		if ($game->is_gm == true)
+		{
+			$_POST['active'] = 1;
+			$this->template->layout = View::factory('game/view')
+				->bind('message', $message)
+				->bind('errors', $errors)
+				->bind('game', $game);
+		}
+		else
+		{
+			/**
+			 * TODO: send request notification to the GM
+			 */
+			$user = Auth::instance()->get_user();
+			$_POST['active'] = 0;
+
+			$this->template->layout = View::factory('user/info')
+				->bind('message', $message)
+				->bind('errors', $errors)
+				->bind('user', $user);
+		}
+
+		$game->add_player();
 	}
 }

@@ -102,4 +102,22 @@ class Controller_Game extends Controller_Template_Base {
 		// var_dump($can_view);
 		// echo "</pre>";
 	}
+
+	public function action_viewall()
+	{
+		$user = Auth::instance()->get_user();
+		$games = Player::get_all_games($user->id);
+
+		$this->template->layout = View::factory('game/viewall')
+			->bind('message', $message)
+			->bind('errors', $errors)
+			->bind('games', $games);
+		// $players = $game->get_all_players();
+		// $can_view = $game->can_view_game();
+
+		// echo "<pre>";
+		// var_dump($players);
+		// var_dump($can_view);
+		// echo "</pre>";
+	}
 }

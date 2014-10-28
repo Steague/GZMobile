@@ -19,6 +19,8 @@ class Game {
 			$this->id               = $game->id;
 			$this->title            = $game->name;
 			$this->is_gm            = ($game->gm_id == $user_id ? true : false);
+			$this->players          = $this->get_all_players();
+			$this->player_count     = count($this->get_all_players());
 		}
 
 		$this->starting_points = 3;
@@ -48,9 +50,11 @@ class Game {
 	public function get_game_data()
 	{
 		return array(
-			"id" => $this->id,
-			"title" => $this->title,
-			"is_gm" => $this->is_gm
+			"id"           => $this->id,
+			"title"        => $this->title,
+			"is_gm"        => $this->is_gm,
+			"players"      => $this->get_all_players(),
+			"player_count" => count($this->get_all_players())
 		);
 	}
 
@@ -178,11 +182,11 @@ class Game {
 			return false;
 		}
 
-		$params            = array();
-		$params['game_id'] = $user->id;
-		$params['user_id'] = time();
+		$params            = $_POST;
+		$params['game_id'] = $this->id;
+		$params['user_id'] = $user_id;
 
-		$player = ORM::factory('Game')->create_player($_POST, array(
+		$player = ORM::factory('Player')->create_player($params, array(
 			'game_id',
 			'user_id',
 			'name',
@@ -195,12 +199,7 @@ class Game {
 			'dead',
 			'bitten'));
 
-		$this->_game['db_game'] = $game;
-		$this->id               = $game->id;
-		$this->title            = $game->name;
-		$this->is_gm            = true;
-
-		return $game;
+		return $player;
 	}
 
 	public function get_all_players()
@@ -209,7 +208,7 @@ class Game {
 		{
 			return false;
 		}
-
+		
 		if (array_key_exists('players', $this->_game))
 		{
 			return $this->_game['players'];
@@ -218,13 +217,13 @@ class Game {
 		$players = $this->_game["db_game"]->players
 			->where('active', '=', 1)
 			->find_all();
-
+		
 		$this->_game['players'] = array();
 		foreach ($players as $player)
 		{
 			$this->_game['players'][$player->id] = $player;
 		}
-
+		$this->_game['player_count'] = count($this->_game['players']);
 		return $this->_game['players'];
 	}
 

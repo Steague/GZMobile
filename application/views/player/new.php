@@ -30,11 +30,11 @@
                 <?php echo Form::input('name', HTML::chars(Arr::get($_POST, 'name')), array("id"=>"name", "placeholder"=>"Name")); ?>
                 <?php echo Form::label('name', Arr::get($errors, 'name'), array('class'=>"error")); ?>
             </div>
-            <div class="ui-field-contain">
+<!--             <div class="ui-field-contain">
                 <?php echo Form::label('archetype', 'Archetype'.$help_link, array("data-title"=>"Archtype")); ?>
                 <?php echo Form::input('archetype', HTML::chars(Arr::get($_POST, 'archetype')), array("id"=>"archetype", "placeholder"=>"Archetype")); ?>
                 <?php echo Form::label('archetype', Arr::get($errors, 'archetype'), array('class'=>"error")); ?>
-            </div>
+            </div> -->
             <?php echo Form::label('points_remaining', 'Starting Points Remaining'); ?>
             <?php echo Form::input('points_remaining', HTML::chars(Arr::get($_POST, 'points_remaining', $game->starting_points)), array("id"=>"points_remaining", "type"=>"range", "data-highlight"=>"true", "min"=>0, "max"=>$game->starting_points, "disabled"=>"disabled")); ?>
             <div class="ui-field-contain">

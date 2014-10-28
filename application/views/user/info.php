@@ -27,6 +27,7 @@
 			<ul>
 				<li><?php echo HTML::anchor('/game/create', 'Create Game', array("data-icon"=>"carat-r"), null, false); ?></li>
 				<li><?php echo HTML::anchor('/game/join', 'Join Game', array("data-icon"=>"plus"), null, false); ?></li>
+				<li><?php echo HTML::anchor('/game/viewall', 'My Games', array("data-icon"=>"bars", "data-dom-cache"=>"false"), null, false); ?></li>
 			</ul>
 		</div><!-- /navbar -->
 	</div><!-- /footer -->

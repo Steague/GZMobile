@@ -7,7 +7,7 @@ class Model_Game_Player extends ORM {
 		'game_id'   => NULL,
 		'user_id'   => NULL,
 		'name'      => NULL,
-		'archetype'  => NULL,
+		'archetype' => NULL,
 		'health'    => NULL,
 		'sanity'    => NULL,
 		'fighting'  => NULL,
@@ -42,6 +42,7 @@ class Model_Game_Player extends ORM {
 		// 		array('not_empty')
 		// 	)
 		// );
+		return array();
 	}
 
 	/**
