@@ -72,4 +72,6 @@
         <h4>Generation Z</h4>
     </div>
 
+    <script type="text/javascript">setupSliderHandler();</script>
+
 </div><!-- /page -->

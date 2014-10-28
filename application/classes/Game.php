@@ -20,7 +20,6 @@ class Game {
 			$this->title            = $game->name;
 			$this->is_gm            = ($game->gm_id == $user_id ? true : false);
 			$this->players          = $this->get_all_players();
-			$this->player_count     = count($this->get_all_players());
 		}
 
 		$this->starting_points = 3;
@@ -53,8 +52,7 @@ class Game {
 			"id"           => $this->id,
 			"title"        => $this->title,
 			"is_gm"        => $this->is_gm,
-			"players"      => $this->get_all_players(),
-			"player_count" => count($this->get_all_players())
+			"players"      => $this->get_all_players()
 		);
 	}
 
@@ -199,17 +197,20 @@ class Game {
 			'dead',
 			'bitten'));
 
+		$this->players = $this->get_all_players(true);
+
 		return $player;
 	}
 
-	public function get_all_players()
+	public function get_all_players($flush = false)
 	{
 		if ($this->valid_game() === false)
 		{
 			return false;
 		}
 		
-		if (array_key_exists('players', $this->_game))
+		if (array_key_exists('players', $this->_game) &&
+			$flush == false)
 		{
 			return $this->_game['players'];
 		}
@@ -221,9 +222,8 @@ class Game {
 		$this->_game['players'] = array();
 		foreach ($players as $player)
 		{
-			$this->_game['players'][$player->id] = $player;
+			$this->_game['players'][$player->user_id] = $player;
 		}
-		$this->_game['player_count'] = count($this->_game['players']);
 		return $this->_game['players'];
 	}
 

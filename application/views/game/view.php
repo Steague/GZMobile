@@ -11,9 +11,12 @@
 		<?php if (count($game->get_all_players()) == 0): ?>
 			No players currently.
 		<?php else: ?>
-			<?php foreach ($game->get_all_players() as $k => $player): ?>
-				# code...
-			<?php endforeach; ?>
+			<?php
+			echo (string) View::factory('game/roster')
+				->bind('message', $message)
+				->bind('errors', $errors)
+				->bind('game', $game);
+			?>
 		<?php endif; ?>
 
 		<?php if ($game->is_gm == true && $game->is_player() === false): ?>

@@ -49,17 +49,22 @@ class Controller_Player extends Controller_Template_Base {
 		$game = new Game($id);
 		if ($game->is_player() === true)
 		{
-			// I am already a played in the game.
+			$this->template->layout = View::factory('game/view')
+				->bind('message', $message)
+				->bind('errors', $errors)
+				->bind('game', $game);
 			return;
 		}
 
 		if ($game->is_gm == true)
 		{
 			$_POST['active'] = 1;
+			$game->add_player();
 			$this->template->layout = View::factory('game/view')
 				->bind('message', $message)
 				->bind('errors', $errors)
 				->bind('game', $game);
+				return;
 		}
 		else
 		{
@@ -68,13 +73,12 @@ class Controller_Player extends Controller_Template_Base {
 			 */
 			$user = Auth::instance()->get_user();
 			$_POST['active'] = 0;
+			$game->add_player();
 
 			$this->template->layout = View::factory('user/info')
 				->bind('message', $message)
 				->bind('errors', $errors)
 				->bind('user', $user);
 		}
-
-		$game->add_player();
 	}
 }

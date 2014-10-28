@@ -49,9 +49,14 @@ $(window).ready(function() {
 
         $("#help_panel").trigger("updatelayout");
     });
+});
 
+function setupSliderHandler()
+{
+    // Tearing down old handlers to make way for the new
+    $(".ui-field-contain").off("change", ".new_player_slider");
     var slider_obj = {};
-    $(".new_player_slider").on("change", function(e) {
+    $(".ui-field-contain").on("change", ".new_player_slider", function(e) {
         if (!slider_obj.hasOwnProperty($(this).attr("id")) ||
             slider_obj[$(this).attr("id")] != $(this).val()) {
             var change = $(this).val() - slider_obj[$(this).attr("id")];
@@ -72,7 +77,7 @@ $(window).ready(function() {
             }
         }
     });
-});
+}
 
 function populateHelp(data) {
     $('#help_panel_content').html("");
