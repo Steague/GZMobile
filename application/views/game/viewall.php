@@ -8,21 +8,13 @@
 
 	<div role="main" class="ui-content">
 	
-		<div data-role="collapsible-set" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+		<ul data-role="listview">
 
 			<?php foreach ($games as $game) { ?>
-			<div data-role="collapsible" data-collapsed="true">
-				<h3><?php echo $game->title; ?> (Short ID: <?php echo Game::get_short_id($game->id); ?>)</h3>
-				<?php
-				echo (string) View::factory('game/roster')
-					->bind('message', $message)
-					->bind('errors', $errors)
-					->bind('game', $game);
-				?>
-			</div>
+				<li><a href="/game/view/<?php echo $game->id; ?>"><?php echo $game->title; ?> (Game ID: <?php echo Game::get_short_id($game->id); ?>)</a></li>
 			<?php } ?>
 			
-		</div>
+		</ul>
 
 	</div><!-- /content -->
 

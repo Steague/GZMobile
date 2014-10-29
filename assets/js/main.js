@@ -20,7 +20,8 @@ $(window).ready(function() {
 
     var help_list_object = {};
     $("a[href=#help_panel]").click(function() {
-        var title = ucwords($(this).parent().attr("data-title").trim());
+        var title = ucwords($(this).attr("data-title").trim());
+        console.log(title);
         var content;
 
         $('#help_panel_content').html("");
@@ -48,6 +49,16 @@ $(window).ready(function() {
         }
 
         $("#help_panel").trigger("updatelayout");
+    });
+
+    $("#gameRequestPage").on("submit", "#joinRequestForm", function(e) {
+        e.preventDefault();
+        console.log("join game?");
+        var action = $(this).attr("action");
+        GZ.get(action, $(this).serializeArray(), function(res) {
+            console.log(res);
+        });
+        $.mobile.changePage("#requestSuccess", { role: "dialog" });
     });
 });
 

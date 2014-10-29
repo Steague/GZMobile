@@ -60,6 +60,41 @@ class Controller_Game extends Controller_Template_Base {
 		}
 	}
 
+	public function action_request()
+	{
+		$this->template->layout = View::factory('game/request')
+			->bind('message', $message)
+			->bind('errors', $errors);
+
+		if (HTTP_Request::POST == $this->request->method())
+		{
+			try
+			{
+				$game = new Game(Game::get_id_from_short_id($_POST['game']));
+
+				// Reset values so form is not sticky
+				$_POST = array();
+			}
+			catch (Exception $e)
+			{
+				// Set failure message
+				$message = 'There were errors, please see form below.';
+
+				// Set errors using custom messages
+				$errors = array("game"=>$e);
+
+				return;
+			}
+
+			$this->redirect(Route::get('default')->uri(
+				array(
+					'controller' => 'user',
+					'action'     => 'index',
+				)));
+			$message = 'Request to join game sent to GM. ('.$game->id.')';
+		}
+	}
+
 	public function action_join()
 	{
 		$id = $this->request->param('id');
@@ -94,13 +129,6 @@ class Controller_Game extends Controller_Template_Base {
 			->bind('message', $message)
 			->bind('errors', $errors)
 			->bind('game', $game);
-		// $players = $game->get_all_players();
-		// $can_view = $game->can_view_game();
-
-		// echo "<pre>";
-		// var_dump($players);
-		// var_dump($can_view);
-		// echo "</pre>";
 	}
 
 	public function action_viewall()
@@ -112,12 +140,5 @@ class Controller_Game extends Controller_Template_Base {
 			->bind('message', $message)
 			->bind('errors', $errors)
 			->bind('games', $games);
-		// $players = $game->get_all_players();
-		// $can_view = $game->can_view_game();
-
-		// echo "<pre>";
-		// var_dump($players);
-		// var_dump($can_view);
-		// echo "</pre>";
 	}
 }
