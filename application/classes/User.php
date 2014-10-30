@@ -9,7 +9,7 @@ class User {
 
 	public function login($request)
 	{
-		$signed_request = ($request->query('signed_request') ? $request->query('signed_request') : $_POST["signed_request"]);
+		$signed_request = ($request->query('signed_request') ? $request->query('signed_request') : (in_array("signed_request", 	$_POST) ? $_POST["signed_request"] : null));
 
 		if ($request->query('username') !== null &&
 			$request->query('password') !== null)
