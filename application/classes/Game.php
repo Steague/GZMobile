@@ -49,10 +49,11 @@ class Game {
 	public function get_game_data()
 	{
 		return array(
-			"id"           => $this->id,
-			"title"        => $this->title,
-			"is_gm"        => $this->is_gm,
-			"players"      => $this->get_all_players()
+			"id"        => $this->id,
+			"title"     => $this->title,
+			"is_gm"     => $this->is_gm,
+			"players"   => $this->get_all_players(),
+			"is_player" => $this->is_player(),
 		);
 	}
 

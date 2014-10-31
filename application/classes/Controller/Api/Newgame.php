@@ -14,7 +14,7 @@ class Controller_Api_Newgame extends Api_Controller {
 		$user = $user->login($this->request);
 		if ($user === false)
 		{
-			$this->error_response(401, "User must pass valid signed request.");
+			//$this->error_response(401, "User must pass valid signed request.");
 			return;
 		}
 
@@ -22,7 +22,7 @@ class Controller_Api_Newgame extends Api_Controller {
 		{
 			$game = new Game();
 
-			$game = $game->create();
+			$game->create();
 
 			$result = array(
 				"result"         => "success",
@@ -33,6 +33,20 @@ class Controller_Api_Newgame extends Api_Controller {
 					"params"   => array(
 						"template" => "view_game",
 						"data"     => $game->get_game_data()
+					)
+				),
+				"after" => array(
+					// array(
+					// 	"function" => "load_template",
+					// 	"params"   => array(
+					// 		"template" => "players_game"
+					// 	)
+					// ),
+					array(
+						"function" => "load_template",
+						"params"   => array(
+							"template" => "join_game_button"
+						)
 					)
 				)
 			);
