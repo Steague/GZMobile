@@ -82,13 +82,12 @@ class Game {
 
 	public static function get_id_from_short_id($short_id)
 	{
-		$c = base_convert(60466175 + $short_id, 36, 10);
+		$c = base_convert($short_id, 36, 10) - 60466175;
 		return $c;
 	}
 
 	/**
 	* @param $user_id Integer A user ID to check
-	* @param $game_id Integer A game ID to check
 	* @return bool
 	*/
 	public function can_view_game($user_id = null)
@@ -217,7 +216,7 @@ class Game {
 		}
 
 		$players = $this->_game["db_game"]->players
-			->where('active', '=', 1)
+			//->where('active', '=', 1)
 			->find_all();
 		
 		$this->_game['players'] = array();

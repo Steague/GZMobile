@@ -51,15 +51,15 @@ $(window).ready(function() {
         $("#help_panel").trigger("updatelayout");
     });
 
-    $("#gameRequestPage").on("submit", "#joinRequestForm", function(e) {
-        e.preventDefault();
-        console.log("join game?");
-        var action = $(this).attr("action");
-        GZ.get(action, $(this).serializeArray(), function(res) {
-            console.log(res);
-        });
-        $.mobile.changePage("#requestSuccess", { role: "dialog" });
-    });
+    // $("#gameRequestPage").on("submit", "#joinRequestForm", function(e) {
+    //     e.preventDefault();
+    //     console.log("join game?");
+    //     var action = $(this).attr("action");
+    //     GZ.get(action, $(this).serializeArray(), function(res) {
+    //         console.log(res);
+    //     });
+    //     $.mobile.changePage("#requestSuccess", { role: "dialog" });
+    // });
 });
 
 function setupSliderHandler()

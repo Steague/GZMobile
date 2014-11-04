@@ -24,7 +24,7 @@
 
         <?php $help_link = HTML::anchor('#help_panel', 'No text', array("data-title"=>"GameID", 'class'=>'ui-btn ui-icon-info ui-btn-icon-notext ui-corner-all ui-btn-inline'), null, false); ?>
 
-        <?php echo Form::open('gamerequest', array("id"=>"joinRequestForm")); ?>
+        <?php echo Form::open('/game/request', array("id"=>"joinRequestForm")); ?>
             <div class="ui-field-contain">
                 <?php echo Form::label('game', 'Game ID'.$help_link, array("data-title"=>"game")); ?>
                 <?php echo Form::input('game', HTML::chars(Arr::get($_POST, 'game')), array("id"=>"game", "placeholder"=>"Game ID")); ?>

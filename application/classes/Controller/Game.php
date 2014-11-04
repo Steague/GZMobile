@@ -74,6 +74,18 @@ class Controller_Game extends Controller_Template_Base {
 
 				// Reset values so form is not sticky
 				$_POST = array();
+
+				// Are you already in the game?
+				if ($game->is_player() === true)
+				{
+					$message = 'Already in the game.';
+					return;
+				}
+
+				$_POST['active'] = 0;
+				$game->add_player();
+
+				$message = 'Request to join game sent to GM.';
 			}
 			catch (Exception $e)
 			{
@@ -82,16 +94,7 @@ class Controller_Game extends Controller_Template_Base {
 
 				// Set errors using custom messages
 				$errors = array("game"=>$e);
-
-				return;
 			}
-
-			$this->redirect(Route::get('default')->uri(
-				array(
-					'controller' => 'user',
-					'action'     => 'index',
-				)));
-			$message = 'Request to join game sent to GM. ('.$game->id.')';
 		}
 	}
 

@@ -12,7 +12,9 @@
 			No players currently.
 		<?php else: ?>
 			<div data-role="collapsible" data-collapsed="true">
-				<h3>Players (<?php echo count($game->players); ?>)</h3>
+				<?php $active = array_filter($game->players, function($player) { return $player->active == true; }); ?>
+				
+				<h3>Active Players (<?php echo count($active); ?>)</h3>
 				<table data-role="table" id="<?php echo $game->id; ?>-my-table" data-mode="reflow" class="ui-responsive table-stroke">
 					<thead>
 						<tr>
@@ -27,19 +29,42 @@
 					</thead>
 					<tbody>
 						<?php foreach ($game->players as $player): ?>
-						<tr>
-							<th><?php echo $player->name; ?><?php echo ($game->is_player() ? " (You) [Leave game]" : ""); ?></th>
-							<td><?php echo $player->health; ?></td>
-							<td><?php echo $player->sanity; ?></td>
-							<td><?php echo $player->fighting; ?></td>
-							<td><?php echo $player->social; ?></td>
-							<td><?php echo $player->survival; ?></td>
-							<td><?php echo ($player->health + $player->sanity + $player->fighting + $player->social + $player->survival); ?></td>
-						</tr>
+							<?php if ($player->active == true): ?>
+								<tr>
+									<th><?php echo $player->name; ?><?php echo ($game->is_player() ? " (You) [Leave game]" : ""); ?></th>
+									<td><?php echo $player->health; ?></td>
+									<td><?php echo $player->sanity; ?></td>
+									<td><?php echo $player->fighting; ?></td>
+									<td><?php echo $player->social; ?></td>
+									<td><?php echo $player->survival; ?></td>
+									<td><?php echo ($player->health + $player->sanity + $player->fighting + $player->social + $player->survival); ?></td>
+								</tr>
+							<?php endif; ?>
 						<?php endforeach; ?>
 					</tbody>
 				</table>
 			</div>
+			<?php if ($game->is_gm == true): ?>
+				<div data-role="collapsible" data-collapsed="true">
+					<h3>Pending Players (<?php echo (count($game->players) - count($active)); ?>)</h3>
+					<table data-role="table" id="<?php echo $game->id; ?>-my-table" data-mode="reflow" class="ui-responsive table-stroke">
+						<thead>
+							<tr>
+								<th data-priority="persist">Username</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($game->players as $player): ?>
+								<?php if ($player->active == false): ?>
+									<tr>
+										<th><?php echo $player->user->username; ?></th>
+									</tr>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			<?php endif; ?>
 		<?php endif; ?>
 
 		<?php if ($game->is_gm == true && $game->is_player() === false): ?>
