@@ -98,6 +98,37 @@ class Controller_Game extends Controller_Template_Base {
 		}
 	}
 
+	public function action_admit()
+	{
+		$id = $this->request->param('id');
+		var_dump($_GET);
+		$player_id = (array_key_exists("player", $_GET) ? $_GET["player"] : null);
+
+		if ($player_id === null)
+		{
+			echo "1";
+			return;
+		}
+
+		$game = new Game($id);
+		$player = new Player($player_id);
+		if ($player === null)
+		{
+			echo "2";
+			return;
+		}
+
+		if ($game->is_player($player->user_id) === true)
+		{
+			echo "3:".$player->user_id;
+			var_dump($player);
+			// I am already a played in the game.
+			return;
+		}
+
+		echo "4";
+	}
+
 	public function action_join()
 	{
 		$id = $this->request->param('id');

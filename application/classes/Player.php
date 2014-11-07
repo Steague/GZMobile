@@ -1,6 +1,21 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 class Player {
 
+	public function __construct($player_id = null)
+	{
+		if ($player_id === null)
+		{
+			return;
+		}
+		$player = ORM::factory('Player')->where('id', '=', $player_id)->find();
+		if ($player)
+		{
+			return $player;
+		}
+
+		return null;
+	}
+
 	public static function get_all_games($user_id)
 	{
 		$games = ORM::factory('Player')->where('user_id', '=', $user_id)->find_all();
