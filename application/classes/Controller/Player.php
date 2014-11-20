@@ -64,7 +64,7 @@ class Controller_Player extends Controller_Template_Base {
 				->bind('message', $message)
 				->bind('errors', $errors)
 				->bind('game', $game);
-				return;
+			return;
 		}
 		else
 		{

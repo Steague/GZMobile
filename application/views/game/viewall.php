@@ -10,9 +10,9 @@
 	
 		<ul data-role="listview">
 
-			<?php foreach ($games as $game) { ?>
+			<?php foreach ($games as $game): ?>
 				<li><a href="/game/view/<?php echo $game->id; ?>"><?php echo $game->title; ?> (Game ID: <?php echo Game::get_short_id($game->id); ?>)</a></li>
-			<?php } ?>
+			<?php endforeach; ?>
 			
 		</ul>
 

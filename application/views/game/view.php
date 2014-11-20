@@ -60,7 +60,7 @@
 									<tr>
 										<th><?php echo $player->user->username; ?></th>
 										<td>
-											<div data-role="controlgroup" data-type="horizontal">
+											<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 												<a href="/game/admit/<?php echo $game->id; ?>?player=<?php echo $player->id; ?>" data-role="button">Admit</a>
 												<a href="/game/decline/<?php echo $game->id; ?>?player=<?php echo $player->id; ?>" data-role="button">Decline</a>
 											</div>
