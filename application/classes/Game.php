@@ -9,6 +9,7 @@ class Game {
 		{
 			return;
 		}
+
 		$game = ORM::factory('Game')->where('id', '=', $game_id)->find();
 		if ($game)
 		{
@@ -20,6 +21,10 @@ class Game {
 			$this->title            = $game->name;
 			$this->is_gm            = ($game->gm_id == $user_id ? true : false);
 			$this->players          = $this->get_all_players();
+		}
+		else
+		{
+			return;
 		}
 
 		$this->starting_points = 3;
@@ -57,7 +62,7 @@ class Game {
 		);
 	}
 
-	protected function valid_game()
+	public function valid_game()
 	{
 		$game = $this->_game["db_game"];
 
@@ -158,6 +163,12 @@ class Game {
 		}
 
 		$players = $this->get_all_players();
+
+		if ($players === false)
+		{
+			return false;
+		}
+
 		if (!array_key_exists($user_id, $players))
 		{
 			return false;

@@ -72,6 +72,17 @@ class Controller_Game extends Controller_Template_Base {
 			{
 				$game = new Game(Game::get_id_from_short_id($_POST['game']));
 
+				// ob_start();
+				// var_dump($game);
+				// $log = ob_get_clean();
+				// error_log($log);
+
+				if (!$game->valid_game())
+				{
+					$message = "Invalid game.";
+					return;
+				}
+
 				// Reset values so form is not sticky
 				$_POST = array();
 
