@@ -1,4 +1,4 @@
-<div data-role="page" id="login" data-theme="a">
+<div data-role="page" id="login" data-theme="a" data-dom-cache="false">
 
     <div data-role="panel" data-theme="b" data-position-fixed="true" data-display="overlay" id="help_panel">
         <div class="ui-panel-inner">

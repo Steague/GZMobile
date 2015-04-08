@@ -1,4 +1,4 @@
-<div data-role="page" id="login" data-theme="a">
+<div data-role="page" id="login" data-theme="a" data-dom-cache="false">
 
 	<div data-role="header" data-position="fixed">
 		<?php echo HTML::anchor('/game/viewall', 'My Games', array("class"=>"ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-bars"), null, false); ?>

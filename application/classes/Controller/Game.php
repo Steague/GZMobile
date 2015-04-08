@@ -177,8 +177,7 @@ class Controller_Game extends Controller_Template_Base {
 
 		//Need to update player
 		$player = new Player($game);
-
-		if (empty($player->playername))
+		if (strlen($player->playername) <= 0)
 		{
 			$this->template->layout = View::factory('player/new');
 		}
