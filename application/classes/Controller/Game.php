@@ -112,12 +112,11 @@ class Controller_Game extends Controller_Template_Base {
 	public function action_admit()
 	{
 		$id = $this->request->param('id');
-		var_dump($_GET);
+		//var_dump($_GET);
 		$player_id = (array_key_exists("player", $_GET) ? $_GET["player"] : null);
 
 		if ($player_id === null)
 		{
-			echo "1";
 			return;
 		}
 
@@ -125,19 +124,25 @@ class Controller_Game extends Controller_Template_Base {
 		$player = new Player($player_id);
 		if ($player === null)
 		{
-			echo "2";
 			return;
 		}
 
-		if ($game->is_player($player->user_id) === true)
+		if ($game->is_player($player->user_id) === true &&
+			$player->active == true)
 		{
-			echo "3:".$player->user_id;
-			var_dump($player);
-			// I am already a played in the game.
+			// I am already a player in the game.
 			return;
 		}
 
-		echo "4";
+		if ($player->active != false)
+		{
+			return;
+		}
+
+		$player->active = 1;
+		$player->save();
+
+		$message = "Player has been admitted to the game.";
 	}
 
 	public function action_join()
@@ -170,7 +175,19 @@ class Controller_Game extends Controller_Template_Base {
 			return;
 		}
 
-		$this->template->layout = View::factory('game/view')
+		//Need to update player
+		$player = new Player($game);
+
+		if (empty($player->playername))
+		{
+			$this->template->layout = View::factory('player/new');
+		}
+		else
+		{
+			$this->template->layout = View::factory('game/view');
+		}
+
+		$this->template->layout
 			->bind('message', $message)
 			->bind('errors', $errors)
 			->bind('game', $game);

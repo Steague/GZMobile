@@ -3,19 +3,20 @@
 class Model_Game_Player extends ORM {
 	protected $_table_name  = 'players';
 	protected $_table_columns = array(
-		'id'        => NULL,
-		'game_id'   => NULL,
-		'user_id'   => NULL,
-		'name'      => NULL,
-		'archetype' => NULL,
-		'health'    => NULL,
-		'sanity'    => NULL,
-		'fighting'  => NULL,
-		'social'    => NULL,
-		'survival'  => NULL,
-		'active'    => NULL,
-		'dead'      => NULL,
-		'bitten'    => NULL
+		'id'         => null,
+		'game_id'    => null,
+		'user_id'    => null,
+		'playername' => null,
+		'archetype'  => null,
+		'health'     => null,
+		'sanity'     => null,
+		'fighting'   => null,
+		'social'     => null,
+		'survival'   => null,
+		'active'     => null,
+		'dead'       => null,
+		'bitten'     => null,
+		'xp'         => null
 	);
 
 	protected $_belongs_to = array(
@@ -53,7 +54,7 @@ class Model_Game_Player extends ORM {
 	 * $player = ORM::factory('Player')->create_player($_POST, array(
 	 *	'game_id',
 	 *  'user_id',
-	 *  'name',
+	 *  'playername',
 	 *  'archetype',
 	 *  'health',
 	 *  'sanity',

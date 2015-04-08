@@ -3,13 +3,24 @@ class Player {
 
 	public function __construct($player_id = null)
 	{
-		if ($player_id === null)
+		switch (true)
 		{
-			return;
+			case ($player_id === null):
+				return null;
+			case (is_a($player_id, 'Game')):
+				$game = $player_id;
+				$user = Auth::instance()->get_user();
+				$player = ORM::factory('Player')->where('game_id', '=', $game->id)->where('user_id', '=', $user->id)->find();
+				break;
+			default:
+				$player = ORM::factory('Player')->where('id', '=', $player_id)->find();
+				break;
 		}
-		$player = ORM::factory('Player')->where('id', '=', $player_id)->find();
+
 		if ($player)
 		{
+			$this->_player = $player;
+
 			return $player;
 		}
 
@@ -36,6 +47,16 @@ class Player {
 		return array();
 	}
 
+	public function save()
+	{
+		if (array_key_exists('_player', $this->data))
+		{
+			return $this->data['_player']->save();
+		}
+
+		return false;
+	}
+
 	/**
 	* Thar be magic getters and setters beyond this point. Enter at own risk.
 	*/
@@ -44,20 +65,34 @@ class Player {
 	{
 		if (!empty($name))
 		{
-			if (is_object($value) || is_array($value))
+			if (array_key_exists('_player', $this->data))
 			{
-				$this->data[$name] = $value;
+				try
+				{
+					$this->data['_player']->$name = $value;
+					return;
+				}
+				catch (Exception $e)
+				{
+					//$name property doesn't exist in player object
+				}
 			}
-			else
+			if ($name == '_player')
 			{
-				$this->data[$name] = $value;
+				//echo "Setting up ORM object";
 			}
+			$this->data[$name] = $value;
 		}
 	}
 
 	public function __get($name)
 	{
-		if (array_key_exists($name, $this->data))
+		if (array_key_exists('_player', $this->data) &&
+			isset($this->data['_player']->$name))
+		{
+			return $this->data['_player']->$name;
+		}
+		elseif (array_key_exists($name, $this->data))
 		{
 			return $this->data[$name];
 		}

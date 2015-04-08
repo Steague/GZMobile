@@ -26,9 +26,9 @@
 
         <?php echo Form::open('/player/register/'.$game->id); ?>
             <div class="ui-field-contain">
-                <?php echo Form::label('name', 'Name'.$help_link, array("data-title"=>"Name")); ?>
-                <?php echo Form::input('name', HTML::chars(Arr::get($_POST, 'name')), array("id"=>"name", "placeholder"=>"Name")); ?>
-                <?php echo Form::label('name', Arr::get($errors, 'name'), array('class'=>"error")); ?>
+                <?php echo Form::label('playername', 'Name'.$help_link, array("data-title"=>"Name")); ?>
+                <?php echo Form::input('playername', HTML::chars(Arr::get($_POST, 'playername')), array("id"=>"playername", "placeholder"=>"Name")); ?>
+                <?php echo Form::label('playername', Arr::get($errors, 'playername'), array('class'=>"error")); ?>
             </div>
 <!--             <div class="ui-field-contain">
                 <?php echo Form::label('archetype', 'Archetype'.$help_link, array("data-title"=>"Archtype")); ?>

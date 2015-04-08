@@ -32,7 +32,7 @@ class Controller_Player extends Controller_Template_Base {
 		$game = new Game($id);
 		if ($game->is_player() === true)
 		{
-			// I am already a played in the game.
+			// I am already a player in the game.
 			return;
 		}
 
@@ -49,6 +49,8 @@ class Controller_Player extends Controller_Template_Base {
 		$game = new Game($id);
 		if ($game->is_player() === true)
 		{
+			$player = new Player($game);
+			$game->update_player($player);
 			$this->template->layout = View::factory('game/view')
 				->bind('message', $message)
 				->bind('errors', $errors)

@@ -198,7 +198,7 @@ class Game {
 		$player = ORM::factory('Player')->create_player($params, array(
 			'game_id',
 			'user_id',
-			'name',
+			'playername',
 			'health',
 			'sanity',
 			'fighting',
@@ -207,6 +207,36 @@ class Game {
 			'active',
 			'dead',
 			'bitten'));
+
+		$this->players = $this->get_all_players(true);
+
+		return $player;
+	}
+
+	public function update_player(Player $player = null)
+	{
+		// If no user ID specified, get the currently logged in user
+		if ($player === null)
+		{
+			$player = new Player($this);
+		}
+
+		if ($this->valid_game() === false)
+		{
+			return false;
+		}
+
+		$params = $_POST;
+		$params['game_id']    = $player->game_id;
+		$params['id']         = $player->id;
+		$params['user_id']    = $player->user_id;
+
+		foreach ($params as $k => $v)
+		{
+			$player->$k = $v;
+		}
+
+		$player->save();
 
 		$this->players = $this->get_all_players(true);
 

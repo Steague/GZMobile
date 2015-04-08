@@ -31,7 +31,7 @@
 						<?php foreach ($game->players as $player): ?>
 							<?php if ($player->active == true): ?>
 								<tr>
-									<th><?php echo $player->name; ?><?php echo ($game->is_player() ? " (You) [Leave game]" : ""); ?></th>
+									<th><?php echo $player->playername; ?><?php echo ($game->is_player() ? " (You) [Leave game]" : ""); ?></th>
 									<td><?php echo $player->health; ?></td>
 									<td><?php echo $player->sanity; ?></td>
 									<td><?php echo $player->fighting; ?></td>
