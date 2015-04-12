@@ -1,4 +1,4 @@
-<div data-role="page" id="login" data-theme="a" data-dom-cache="false">
+<div data-role="page" id="game-view" data-theme="a" data-dom-cache="false">
 
 	<div data-role="header" data-position="fixed">
 		<?php echo HTML::anchor('/game/viewall', 'My Games', array("class"=>"ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-bars"), null, false); ?>
@@ -12,7 +12,7 @@
 			No players currently.
 		<?php else: ?>
 			<div data-role="collapsible" data-collapsed="true">
-				<?php $active = array_filter($game->players, function($player) { return $player->active == true; }); ?>
+				<?php $active = array_filter($game->players, function($player) { return ($player->active == true && strlen($player->playername) > 0); }); ?>
 				
 				<h3>Active Players (<?php echo count($active); ?>)</h3>
 				<table data-role="table" id="<?php echo $game->id; ?>-my-table" data-mode="reflow" class="ui-responsive table-stroke">
@@ -25,19 +25,30 @@
 							<th data-priority="4">Social</th>
 							<th data-priority="5">Survival</th>
 							<th data-priority="6">XP</th>
+							<th data-priority="7">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ($game->players as $player): ?>
-							<?php if ($player->active == true): ?>
+							<?php if ($player->active == true && strlen($player->playername) > 0): ?>
 								<tr>
-									<th><?php echo $player->playername; ?><?php echo ($game->is_player() ? " (You) [Leave game]" : ""); ?></th>
+									<th><?php echo $player->playername; ?><?php echo ($game->is_me($player) ? " (You)" : ""); ?></th>
 									<td><?php echo $player->health; ?></td>
 									<td><?php echo $player->sanity; ?></td>
 									<td><?php echo $player->fighting; ?></td>
 									<td><?php echo $player->social; ?></td>
 									<td><?php echo $player->survival; ?></td>
-									<td><?php echo ($player->health + $player->sanity + $player->fighting + $player->social + $player->survival); ?></td>
+									<td><?php echo $player->xp; ?></td>
+									<td>
+										<?php if ($game->is_me($player)): ?>
+											<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+												<a href="/game/leave/<?php echo $game->id; ?>?player=<?php echo $player->id; ?>" data-role="button" id="leave-game">Leave Game</a>
+												<?php if ($player->xp > 0): ?>
+													<a href="/player/level/<?php echo $game->id; ?>?player=<?php echo $player->id; ?>" data-role="button">Spend XP</a>
+												<?php endif; ?>
+											</div>
+										<?php endif; ?>
+									</td>
 								</tr>
 							<?php endif; ?>
 						<?php endforeach; ?>
@@ -47,29 +58,38 @@
 			<?php if ($game->is_gm == true): ?>
 				<div data-role="collapsible" data-collapsed="true">
 					<h3>Pending Players (<?php echo (count($game->players) - count($active)); ?>)</h3>
-					<table data-role="table" id="<?php echo $game->id; ?>-my-table" data-mode="reflow" class="ui-responsive table-stroke">
-						<thead>
-							<tr>
-								<th data-priority="persist">Username</th>
-								<th>Admit?</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach ($game->players as $player): ?>
-								<?php if ($player->active == false): ?>
-									<tr>
-										<th><?php echo $player->user->username; ?></th>
-										<td>
-											<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-												<a href="/game/admit/<?php echo $game->id; ?>?player=<?php echo $player->id; ?>" data-role="button">Admit</a>
-												<a href="/game/decline/<?php echo $game->id; ?>?player=<?php echo $player->id; ?>" data-role="button">Decline</a>
-											</div>
-										</td>
-									</tr>
-								<?php endif; ?>
-							<?php endforeach; ?>
-						</tbody>
-					</table>
+					<?php if ((count($game->players) - count($active)) == 0): ?>
+						No pending players.
+					<?php else: ?>
+						<table data-role="table" id="<?php echo $game->id; ?>-my-table" data-mode="reflow" class="ui-responsive table-stroke">
+							<thead>
+								<tr>
+									<th data-priority="persist">Username</th>
+									<th>Admit?</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach ($game->players as $player): ?>
+									<?php if ($player->active == false || ($player->active == true && strlen($player->playername) <= 0)): ?>
+										<tr>
+											<th><?php echo $player->user->username; ?></th>
+											<td>
+												<?php if ($player->active == true && strlen($player->playername) <= 0): ?>
+													Player already admitted.
+												<? endif; ?>
+												<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+													<?php if ($player->active == false): ?>
+														<a href="/game/admit/<?php echo $game->id; ?>?player=<?php echo $player->id; ?>" data-role="button">Admit</a>
+													<? endif; ?>
+													<a href="/game/decline/<?php echo $game->id; ?>?player=<?php echo $player->id; ?>" data-role="button">Decline</a>
+												</div>
+											</td>
+										</tr>
+									<?php endif; ?>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 		<?php endif; ?>

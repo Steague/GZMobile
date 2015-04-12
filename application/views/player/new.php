@@ -1,4 +1,4 @@
-<div data-role="page" id="login" data-theme="a" data-dom-cache="false">
+<div data-role="page" id="player-edit" data-theme="a" data-dom-cache="false">
 
     <div data-role="panel" data-theme="b" data-position-fixed="true" data-display="overlay" id="help_panel">
         <div class="ui-panel-inner">
@@ -9,7 +9,8 @@
     </div><!-- /panel -->
 
     <div data-role="header" data-position="fixed">
-        <?php echo HTML::anchor('/game/view/'.$game->id, 'Return', array("class"=>"ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-arrow-l"), null, false); ?>
+        <!--<?php echo HTML::anchor('/game/view/'.$game->id, 'Return', array("class"=>"ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-arrow-l"), null, false); ?>-->
+        <?php echo HTML::anchor('/game/viewall', 'My Games', array("class"=>"ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-bars"), null, false); ?>
         <h1>Join Game: <?php echo $game->title; ?></h1>
         <?php echo HTML::anchor('/user/logout', 'Logout', array("class"=>"ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-power"), null, false); ?>
     </div><!-- /header -->
@@ -35,7 +36,7 @@
                 <?php echo Form::input('archetype', HTML::chars(Arr::get($_POST, 'archetype')), array("id"=>"archetype", "placeholder"=>"Archetype")); ?>
                 <?php echo Form::label('archetype', Arr::get($errors, 'archetype'), array('class'=>"error")); ?>
             </div> -->
-            <?php echo Form::label('points_remaining', 'Starting Points Remaining'); ?>
+            <?php echo Form::label('points_remaining', 'Experience Points Remaining'); ?>
             <?php echo Form::input('points_remaining', HTML::chars(Arr::get($_POST, 'points_remaining', $game->starting_points)), array("id"=>"points_remaining", "type"=>"range", "data-highlight"=>"true", "min"=>0, "max"=>$game->starting_points, "disabled"=>"disabled")); ?>
             <div class="ui-field-contain">
                 <?php echo Form::label('health_slider', 'Health'.$help_link, array("data-title"=>"Health")); ?>

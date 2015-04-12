@@ -1,4 +1,4 @@
-<div data-role="page" id="login" data-theme="a" data-dom-cache="false">
+<div data-role="page" id="view-all-games" data-theme="a" data-dom-cache="false">
 
 	<div data-role="header" data-position="fixed">
 		<?php echo HTML::anchor('/', 'Home', array("class"=>"ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-arrow-l"), null, false); ?>
@@ -11,11 +11,15 @@
 		<ul data-role="listview">
 
 			<?php foreach ($games as $game): ?>
-				<li><?php echo HTML::anchor("/game/view/".$game->id, $game->title."(Game ID: ".Game::get_short_id($game->id).")", null, null, false); ?></li>
+				<li><?php echo HTML::anchor("/game/view/".$game->id, $game->title." (Game Short Code: ".Game::get_short_id($game->id).")", null, null, false); ?></li>
 			<?php endforeach; ?>
 			
 		</ul>
 
 	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed">
+        <h4>Generation Z</h4>
+    </div>
 
 </div><!-- /page -->

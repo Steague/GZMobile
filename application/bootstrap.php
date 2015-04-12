@@ -140,6 +140,7 @@ Kohana::modules(array(
 	'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	'unittest'   => MODPATH.'unittest',   // Unit testing
 	'twilio'     => MODPATH.'twilio',
+	'rediska'    => MODPATH.'rediska',
 	// 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
 	'simple_rest'  => MODPATH.'simple_rest',  // User guide and API documentation
 	));

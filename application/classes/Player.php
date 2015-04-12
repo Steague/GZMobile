@@ -27,15 +27,29 @@ class Player {
 		return null;
 	}
 
-	public static function get_all_games($user_id)
+	public static function get_all_games()
 	{
-		$games = ORM::factory('Player')->where('user_id', '=', $user_id)->find_all();
+		$user = Auth::instance()->get_user();
+
+		$gm_orm = ORM::factory('Game')->where('gm_id', '=', $user->id)->find_all();
+		$player_orm = ORM::factory('Player')->where('user_id', '=', $user->id)->where('active', '=', 1)->find_all();
+
+		$result = array_merge(self::get_all_x_games($gm_orm, "id"), self::get_all_x_games($player_orm, "game_id"));
+		$result = array_map("unserialize", array_unique(array_map("serialize", $result)));
+
+		sort($result);
+
+		return $result;
+	}
+
+	public static function get_all_x_games($games, $id_name)
+	{
 		if ($games)
 		{
 			$rtn_games = array();
 			foreach ($games as $game)
 			{
-				$game = new Game($game->game_id);
+				$game = new Game($game->$id_name);
 				if ($game->can_view_game())
 				{
 					array_push($rtn_games, $game);
@@ -55,6 +69,25 @@ class Player {
 		}
 
 		return false;
+	}
+
+	public function is_me()
+	{
+		$user = Auth::instance()->get_user();
+		if ($this->user_id !== $user->id)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	public function leave()
+	{
+		$this->data['_player']->delete();
+		$this->data['_player'] = null;
+
+		return;
 	}
 
 	/**

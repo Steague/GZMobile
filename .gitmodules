@@ -7,3 +7,6 @@
 [submodule "modules/simple_rest"]
 	path = modules/simple_rest
 	url = https://github.com/samkeen/kohana-simple-REST
+[submodule "modules/rediska"]
+	path = modules/rediska
+	url = https://github.com/cheggaaa/rediska-ko.git

@@ -153,6 +153,30 @@ class Game {
 		return true;
 	}
 
+	public function is_me($player)
+	{
+		$user = Auth::instance()->get_user();
+
+		$players = $this->get_all_players();
+
+		if ($players === false)
+		{
+			return false;
+		}
+
+		if (!array_key_exists($user->id, $players))
+		{
+			return false;
+		}
+
+		if ($player->user_id !== $user->id)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	public function is_player($user_id = null)
 	{
 		// If no user ID specified, get the currently logged in user

@@ -15,13 +15,13 @@
 		<tbody>
 			<?php foreach ($game->players as $player): ?>
 			<tr>
-				<th><?php echo $player->playername; ?><?php echo ($game->is_player() ? " (You) [Leave game]" : ""); ?></th>
+				<th><?php echo $player->playername; ?><?php echo ($game->is_me() ? " (You) [Leave game]" : ""); ?></th>
 				<td><?php echo $player->health; ?></td>
 				<td><?php echo $player->sanity; ?></td>
 				<td><?php echo $player->fighting; ?></td>
 				<td><?php echo $player->social; ?></td>
 				<td><?php echo $player->survival; ?></td>
-				<td><?php echo ($player->health + $player->sanity + $player->fighting + $player->social + $player->survival); ?></td>
+				<td><?php echo $player->xp; ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>

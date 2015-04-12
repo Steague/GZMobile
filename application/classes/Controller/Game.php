@@ -72,14 +72,21 @@ class Controller_Game extends Controller_Template_Base {
 			{
 				$game = new Game(Game::get_id_from_short_id($_POST['game']));
 
-				// ob_start();
-				// var_dump($game);
-				// $log = ob_get_clean();
-				// error_log($log);
-
 				if (!$game->valid_game())
 				{
 					$message = "Invalid game.";
+					return;
+				}
+
+				if ($game->is_gm === true)
+				{
+					$this->template->layout = View::factory('player/new')
+						->bind('game', $game)
+						->bind('message', $message)
+						->bind('errors', $errors);
+
+					$message = "You are the GM of this game.";
+
 					return;
 				}
 
@@ -143,6 +150,24 @@ class Controller_Game extends Controller_Template_Base {
 		$player->save();
 
 		$message = "Player has been admitted to the game.";
+
+		try
+		{
+			$this->redirect(Route::get('default')->uri(
+				array(
+					'controller' => 'game',
+					'action'     => 'view',
+					'id'         => $id
+				)));
+		}
+		catch (HTTP_Exception_Redirect $e)
+		{
+			throw $e;
+		}
+		catch (Exception $e)
+		{
+			$response = $e->get_response();
+		}
 	}
 
 	public function action_join()
@@ -165,6 +190,52 @@ class Controller_Game extends Controller_Template_Base {
 			->bind('game', $game);
 	}
 
+	public function action_leave()
+	{
+		$id = $this->request->param('id');
+		$game = new Game($id);
+
+		$player_id = (array_key_exists("player", $_GET) ? $_GET["player"] : null);
+
+		if ($player_id === null)
+		{
+			return;
+		}
+
+		$player = new Player($player_id);
+
+		if ($game->is_player($player->user_id) !== true ||
+			$player->active != true)
+		{
+			return;
+		}
+
+		if (!$player->is_me())
+		{
+			return;
+		}
+
+		$message = "You have left the game.";
+		try
+		{
+			$player->leave();
+
+			$this->redirect(Route::get('default')->uri(
+				array(
+					'controller' => 'user',
+					'action'     => 'index'
+				)));
+		}
+		catch (HTTP_Exception_Redirect $e)
+		{
+			throw $e;
+		}
+		catch (Exception $e)
+		{
+			$response = $e->get_response();
+		}
+	}
+
 	public function action_view()
 	{
 		$id = $this->request->param('id');
@@ -175,9 +246,8 @@ class Controller_Game extends Controller_Template_Base {
 			return;
 		}
 
-		//Need to update player
 		$player = new Player($game);
-		if (strlen($player->playername) <= 0)
+		if (is_null($player->playername) || strlen($player->playername) <= 0)
 		{
 			$this->template->layout = View::factory('player/new');
 		}
@@ -194,8 +264,7 @@ class Controller_Game extends Controller_Template_Base {
 
 	public function action_viewall()
 	{
-		$user = Auth::instance()->get_user();
-		$games = Player::get_all_games($user->id);
+		$games = Player::get_all_games();
 
 		$this->template->layout = View::factory('game/viewall')
 			->bind('message', $message)
